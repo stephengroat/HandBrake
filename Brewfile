@@ -1,0 +1,6 @@
+brew 'nasm'
+brew 'autoconf'
+brew 'automake'
+brew 'libtool'
+brew 'pkg-config'
+brew 'cmake'

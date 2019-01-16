@@ -1,6 +1,56 @@
 git:
   depth: 1
 
+addons:
+  homebrew:
+    brewfile: true
+  apt:
+    packages:
+      - autoconf
+      - automake
+      - build-essential
+      - cmake
+      - git
+      - libass-dev
+      - libbz2-dev
+      - libfontconfig1-dev
+      - libfreetype6-dev
+      - libfribidi-dev
+      - libharfbuzz-dev
+      - libjansson-dev
+      - liblzma-dev
+      - libmp3lame-dev
+      - libogg-dev
+      - libopus-dev
+      - libsamplerate-dev
+      - libspeex-dev
+      - libtheora-dev
+      - libtool
+      - libtool-bin
+      - libvorbis-dev
+      - libx264-dev
+      - libxml2-dev
+      - m4
+      - make
+      - patch
+      - pkg-config
+      - python
+      - tar
+      - yasm
+      - zlib1g-dev
+      - intltool
+      - libappindicator-dev
+      - libdbus-glib-1-dev
+      - libglib2.0-dev
+      - libgstreamer1.0-dev
+      - libgstreamer-plugins-base1.0-dev
+      - libgtk-3-dev
+      - libgudev-1.0-dev
+      - libnotify-dev
+      - libwebkitgtk-3.0-dev
+      - nasm
+      - pax
+
 matrix:
   include:
     - os: linux
@@ -12,12 +62,6 @@ matrix:
     - os: osx
       osx_image: xcode10.1
       nv: BUILD_MINGW=false
-
-before_install:
-- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get update -qq ; fi
-- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -qq autoconf automake build-essential cmake git libass-dev libbz2-dev libfontconfig1-dev libfreetype6-dev libfribidi-dev libharfbuzz-dev libjansson-dev liblzma-dev libmp3lame-dev libogg-dev libopus-dev libsamplerate-dev libspeex-dev libtheora-dev libtool libtool-bin libvorbis-dev libx264-dev libxml2-dev m4 make patch pkg-config python tar yasm zlib1g-dev  ; fi
-- if [[ "$TRAVIS_OS_NAME" == "linux" && "$BUILD_MINGW" == false ]]; then sudo apt-get install -qq intltool libappindicator-dev libdbus-glib-1-dev libglib2.0-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgtk-3-dev libgudev-1.0-dev libnotify-dev libwebkitgtk-3.0-dev nasm  ; fi
-- if [[ "$BUILD_MINGW" == true ]]; then sudo apt-get install -qq pax ; fi
 
 language: c
 
@@ -35,12 +79,6 @@ script:
 - if [[ "$BUILD_MINGW" == true ]]; then ./configure --cross=x86_64-w64-mingw32 --enable-nvenc --enable-qsv --enable-vce  && cd build && make -j 2 ; fi
 
 # Macos Build Support
-- if [[ "$TRAVIS_OS_NAME" == "osx" && -d "$HOME/toolchains/mac" ]]; then sudo ./scripts/mac-toolchain-build ~/toolchains/mac  ; fi
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then curl -O https://www.nasm.us/pub/nasm/releasebuilds/2.14/nasm-2.14.tar.gz ; fi
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then tar xvf nasm-2.14.tar.gz && cd nasm-2.14/ && ./configure && make && cd ..  ; fi
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then pwd ; fi
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then export PATH=/Users/travis/build/HandBrake/HandBrake/nasm-2.14/:$HOME/toolchains/mac/bin:$PATH ; fi
-- echo $PATH
 - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ./configure && cd build && make -j 2 ; fi
 
 
