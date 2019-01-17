@@ -7,6 +7,7 @@ addons:
   apt:
     sources:
       - sourceline: 'ppa:jonathonf/nasm'
+      - sourceline: 'ppa:jonathonf/gtk3.22'
     packages:
       - autoconf
       - automake
