@@ -58,26 +58,16 @@ matrix:
   include:
     - os: linux
       dist: xenial
-      env: BUILD_MINGW=false
+      env: ARGS="--disable-gst --launch --launch-jobs=0"
     - os: linux
       dist: xenial
-      env: BUILD_MINGW=true
+      env: ARGS="--cross=x86_64-w64-mingw32 --enable-nvenc --enable-qsv --enable-vce"
     - os: osx
       osx_image: xcode10.1
-      nv: BUILD_MINGW=false
 
 language: c
 
-script:
-
-# Linux Build Support
-- if [[ "$TRAVIS_OS_NAME" == "linux" && "$BUILD_MINGW" == false  ]]; then ./configure --disable-gst --launch --launch-jobs=0 ; fi
-
-# MinGW Build Support
-- if [[ "$BUILD_MINGW" == true ]]; then ./configure --cross=x86_64-w64-mingw32 --enable-nvenc --enable-qsv --enable-vce  && cd build && make -j 2 ; fi
-
-# Macos Build Support
-- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ./configure && cd build && make -j 2 ; fi
+script: ./configure $ARGS && cd build && make -j 2
 
 
 cache:
