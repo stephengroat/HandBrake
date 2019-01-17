@@ -5,6 +5,8 @@ addons:
   homebrew:
     brewfile: true
   apt:
+    sources:
+      - sourceline: 'ppa:jonathonf/nasm'
     packages:
       - autoconf
       - automake
