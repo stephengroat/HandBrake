@@ -68,7 +68,7 @@ matrix:
 
 language: c
 
-script: ./configure $ARGS && cd build && make -j 2
+script: ./configure $ARGS && cd build && travis_wait 50 make -j 2
 
 
 cache:
