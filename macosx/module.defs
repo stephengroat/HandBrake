@@ -50,6 +50,7 @@ MACOSX.extra_cflags = OTHER_CFLAGS='$(MACOSX.GCC.D)'
 
 MACOSX.XCODE = $(strip \
     $(XCODEBUILD.exe) \
+        -quiet \
         $(MACOSX.project) \
         $(foreach t,$(1),-target $t) \
         $(MACOSX.configuration) \
