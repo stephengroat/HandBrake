@@ -64,11 +64,10 @@ matrix:
       dist: xenial
       env: ARGS="--cross=x86_64-w64-mingw32 --enable-nvenc --enable-qsv --enable-vce"
     - os: osx
-      osx_image: xcode10.1
 
 language: c
 
-script: ./configure $ARGS && cd build && travis_wait 50 make -j 2
+script: travis_wait 50 ./configure $ARGS && cd build && travis_wait 50 make -j 2
 
 
 cache:
